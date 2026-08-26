@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import axios from 'axios';
+import api from '../api';
 import {useAuth } from '../context/AuthContext';
 
 function Home() {
@@ -14,7 +14,7 @@ function Home() {
   const [editText, setEditText] = useState('');
 
   const fetchMessage = () => {
-    axios.get('http://localhost:5000/api/home')
+    api.get('/home')
     .then(res => setMessage(res.data.message))
     .catch(err => {
       console.error(err);
@@ -23,7 +23,7 @@ function Home() {
   }
   
   const fetchAllMessages = () => {
-    axios.get('http://localhost:5000/api/home/all')
+    api.get('/home/all')
     .then(res => setAllMessages(res.data.messages))
     .catch(err => {
       console.error(err);
@@ -47,7 +47,7 @@ function Home() {
     setSubmitting(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/home',
+      const res = await api.post('/home',
         { text : inputText },
         {headers : {Authorization: `Bearer ${token}`}}
       );
@@ -64,7 +64,7 @@ function Home() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/home/${id}`,
+      await api.delete(`/home/${id}`,
         { headers: {Authorization: `Bearer ${token}`}}
       );
       fetchAllMessages();
@@ -91,7 +91,7 @@ function Home() {
     }
 
     try{
-      await axios.put(`http://localhost:5000/api/home/${id}`,
+      await api.put(`/home/${id}`,
         { text: editText },
         { headers: { Authorization: `Bearer ${token}` } }
       );

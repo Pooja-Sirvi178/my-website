@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
@@ -16,7 +16,7 @@ function Register() {
     setSuccess('');
 
     try {
-      await axios.post('http://localhost:5000/api/auth/register', { username, password });
+      await api.post('/auth/register', { username, password });
       setSuccess('Registered successfully! Redirecting to login...');
       setTimeout(() => navigate('/login'), 1500);
     } catch (err) {

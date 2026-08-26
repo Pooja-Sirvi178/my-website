@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 import { useAuth } from '../context/AuthContext';
 
 function About() {
@@ -10,7 +10,7 @@ function About() {
   const [error, setError] = useState('');
 
   const fetchAbout = () => {
-    axios.get('http://localhost:5000/api/about')
+    api.get('/about')
       .then(res => setBio(res.data.bio))
       .catch(err => {
         console.error(err);
@@ -33,7 +33,7 @@ function About() {
       return;
     }
     try {
-      const res = await axios.put('http://localhost:5000/api/about',
+      const res = await api.put('/about',
         { bio: editText },
         { headers: { Authorization: `Bearer ${token}` } }
       );
