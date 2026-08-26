@@ -1,7 +1,10 @@
 import {useEffect, useState} from 'react';
 import axios from 'axios';
+import {useAuth } from '../context/AuthContext';
 
 function Home() {
+  const {token} = useAuth();
+
   const [message, setMessage] = useState('Loading...');
   const [inputText, setInputText] = useState('');
   const [submitting, setSubmitting] = useState(false);
@@ -44,9 +47,10 @@ function Home() {
     setSubmitting(true);
 
     try {
-      const res = await axios.post('http://localhost:5000/api/home', {
-        text : inputText
-      });
+      const res = await axios.post('http://localhost:5000/api/home',
+        { text : inputText },
+        {headers : {Authorization: `Bearer ${token}`}}
+      );
       setMessage(res.data.message);
       fetchAllMessages();
       setInputText('');
@@ -60,7 +64,9 @@ function Home() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/home/${id}`);
+      await axios.delete(`http://localhost:5000/api/home/${id}`,
+        { headers: {Authorization: `Bearer ${token}`}}
+      );
       fetchAllMessages();
     } catch(error) {
       console.error(error);
@@ -85,7 +91,11 @@ function Home() {
     }
 
     try{
-      await axios.put(`http://localhost:5000/api/home/${id}`, {text: editText});
+      await axios.put(`http://localhost:5000/api/home/${id}`,
+        { text: editText },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
       setEditingId(null);
       setEditText('');
       fetchMessage();
@@ -100,7 +110,8 @@ function Home() {
       <h1>Welcome to Our Website</h1>
       <p>{message}</p>
 
-      <form onSubmit={handleSubmit} className="message-form">
+      {token ? (
+        <form onSubmit={handleSubmit} className="message-form">
         <input
           type="text"
           value={inputText}
@@ -111,6 +122,9 @@ function Home() {
           {submitting ? 'Saving...' : 'Submit'}
         </button>
       </form>
+      ) : (
+        <p>Log in to add a message.</p>
+      )}
 
       {error && <p className="error">{error}</p>}
       <br/>
@@ -131,10 +145,12 @@ function Home() {
             ) : (
               <div className='view-row'>
                 <span>{msg.text}</span>
-                <div className='actions'>
-                  <button onClick={() => startEdit(msg)}>Edit</button>
-                  <button onClick={() => handleDelete(msg._id)}>Delete</button>
-                </div>
+                {token && (
+                  <div className='actions'>
+                    <button onClick={() => startEdit(msg)}>Edit</button>
+                    <button onClick={() => handleDelete(msg._id)}>Delete</button>
+                  </div>
+                )}
               </div>
             )}
           </li>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 function About() {
+  const { token } = useAuth();
   const [bio, setBio] = useState('Loading...');
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState('');
@@ -31,7 +33,10 @@ function About() {
       return;
     }
     try {
-      const res = await axios.put('http://localhost:5000/api/about', { bio: editText });
+      const res = await axios.put('http://localhost:5000/api/about',
+        { bio: editText },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
       setBio(res.data.bio);
       setEditing(false);
       setError('');
@@ -59,7 +64,7 @@ function About() {
         <div>
           <p>{bio}</p>
           <br />
-          <button onClick={startEdit} className='btn'>Edit Bio</button>
+          {token && <button onClick={startEdit} className='btn'>Edit Bio</button>}
         </div>
       )}
 

@@ -30,7 +30,7 @@ router.post('/auth/register', async(req, res) => {
 });
 
 //POST /api/auth/login
-router.post('auth/login', async (req, res) => {
+router.post('/auth/login', async (req, res) => {
     try {
         const {username , password} = req.body;
 
@@ -44,7 +44,7 @@ router.post('auth/login', async (req, res) => {
         }
 
         //create a token containing the user's id, signed with our secret
-        const token = jwt.sign({ id: user_id, username: user.username},
+        const token = jwt.sign({ id: user._id, username: user.username},
             process.env.JWT_SECRET,
             {expiresIn: '2h'}
         );
