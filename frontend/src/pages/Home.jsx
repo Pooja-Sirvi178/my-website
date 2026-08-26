@@ -97,7 +97,7 @@ function Home() {
 
   return(
     <div className="app">
-      <h1>Welcome to My Website</h1>
+      <h1>Welcome to Our Website</h1>
       <p>{message}</p>
 
       <form onSubmit={handleSubmit} className="message-form">
