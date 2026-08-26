@@ -1,0 +1,120 @@
+.app {
+  text-align: center;
+  margin-top: 80px;
+  font-family:'Courier New', Courier, monospace;
+}
+
+.app p {
+  font-size: 24px;
+  color: #333;
+}
+
+.message-form {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.message-form input {
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 250px;
+}
+
+.message-form button {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
+
+.message-form button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.message-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+.message-list li {
+  background: #f4f4f4;
+  padding: 8px 12px;
+  margin-bottom: 6px;
+  border-radius: 4px;
+}
+
+.view-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-row {
+  display: flex;
+  gap: 6px;
+}
+
+.edit-row input {
+  flex: 1;
+  padding: 4px 8px;
+}
+
+.actions button,
+.edit-row button {
+  margin-left: 6px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #333;
+  color: white;
+  font-size: 14px;
+}
+
+/*nav bar css*/
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 16px;
+  background: #222;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.btn {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+  cursor: pointer;
+}
