@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Message = require('../models/Message.js');
+const protect = require('../middleware/authMiddleware.js');
 
 //GET 
 router.get('/home', async (req, res) => {
@@ -28,7 +29,7 @@ router.get('/home/all', async (req, res) => {
 });
 
 //POST
-router.post('/home', async (req, res) => {
+router.post('/home', protect, async (req, res) => {
     try {
         const {text} = req.body;
 
@@ -44,7 +45,7 @@ router.post('/home', async (req, res) => {
 });
 
 //DELETE 
-router.delete('/home/:id', async(req, res) => {
+router.delete('/home/:id', protect,async(req, res) => {
     try {
         const {id} = req.params;
         const deleted = await Message.findByIdAndDelete(id);
@@ -60,7 +61,7 @@ router.delete('/home/:id', async(req, res) => {
 });
 
 //PUT
-router.put('/home/:id', async(req, res) => {
+router.put('/home/:id', protect,async(req, res) => {
     try {
         const {id} = req.params;
         const {text} = req.body;

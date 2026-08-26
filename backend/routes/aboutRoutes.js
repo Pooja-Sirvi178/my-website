@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const About = require('../models/About.js');
+const protect = require('../middleware/authMiddleware.js');
 
 //GET
 router.get('/about', async(req, res) => {
@@ -18,7 +19,7 @@ router.get('/about', async(req, res) => {
 });
 
 //PUT
-router.put('/about', async(req, res) => {
+router.put('/about', protect,async(req, res) => {
     try {
         const {bio} = req.body;
 
