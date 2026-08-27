@@ -9,6 +9,10 @@
   color: #333;
 }
 
+.app h1 {
+  line-height: 1.5;
+}
+
 .message-form {
   margin-top: 20px;
   display: flex;
@@ -175,9 +179,5 @@
   .app {
     margin-top: 30px;
     padding: 0 16px;
-  }
-
-  .app h1 {
-    padding: 10px 0;
   }
 }
